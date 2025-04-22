@@ -20,12 +20,12 @@ git clone https://github.com/MarcusAdriano/mcp-moedas
 
 Mac:
 ```bash
-go build -o $(go env GOPATH)/bin/mcp-moedas
+go build -o $(go env GOPATH)/bin/mcp-moedas cmd/mcp/main.go
 ```
 
 Windows:
 ```bash
-go build -o %GOPATH%\bin\mcp-moedas.exe
+go build -o %GOPATH%\bin\mcp-moedas.exe cmd\mcp\main.go
 ```
 
 3. Configurando o Claude.ai:
