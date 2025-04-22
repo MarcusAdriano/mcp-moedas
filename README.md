@@ -48,3 +48,23 @@ Para saber o caminho do binário, execute o comando:
 ```bash
 go env GOPATH
 ```
+
+### Executando via Docker
+
+Configurações do Claude.ai:
+
+```json
+{
+    "mcpServers": {
+        "cotacao-moedas-server": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "ghcr.io/marcusadriano/mcp-moedas:main"
+            ]
+        }
+    }
+}
+```
