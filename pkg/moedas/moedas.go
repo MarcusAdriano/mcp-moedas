@@ -1,6 +1,7 @@
 package moedas
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -39,7 +40,7 @@ type RespostaTipoCotacaoMoeda struct {
 	Values []TipoCotacaoMoeda `json:"value"`
 }
 
-func Disponiveis() (*RespostaTipoMoeda, error) {
+func Disponiveis(ctx context.Context) (*RespostaTipoMoeda, error) {
 
 	url, _ := url.Parse(urlBase + moedas)
 	query := url.Query()
@@ -75,16 +76,16 @@ func Disponiveis() (*RespostaTipoMoeda, error) {
 	return &resposta, nil
 }
 
-func ConsultarPorSigla(sigla string) (*RespostaTipoCotacaoMoeda, error) {
+func ConsultarPorSigla(ctx context.Context, sigla string) (*RespostaTipoCotacaoMoeda, error) {
 	data := time.Now()
-	return consultarPorSigla(sigla, data)
+	return consultarPorSigla(ctx, sigla, data)
 }
 
-func ConsultarPorSiglaEData(sigla string, data time.Time) (*RespostaTipoCotacaoMoeda, error) {
-	return consultarPorSigla(sigla, data)
+func ConsultarPorSiglaEData(ctx context.Context, sigla string, data time.Time) (*RespostaTipoCotacaoMoeda, error) {
+	return consultarPorSigla(ctx, sigla, data)
 }
 
-func ConsultarPorSiglaUltimaData(sigla string) (*RespostaTipoCotacaoMoeda, error) {
+func ConsultarPorSiglaUltimaData(ctx context.Context, sigla string) (*RespostaTipoCotacaoMoeda, error) {
 	data := time.Now()
 	maxTentativas := 5
 	i := 0
@@ -95,7 +96,7 @@ func ConsultarPorSiglaUltimaData(sigla string) (*RespostaTipoCotacaoMoeda, error
 		}
 		i++
 
-		res, err := consultarPorSigla(sigla, data)
+		res, err := consultarPorSigla(ctx, sigla, data)
 		if err != nil {
 			return nil, err
 		}
@@ -107,7 +108,7 @@ func ConsultarPorSiglaUltimaData(sigla string) (*RespostaTipoCotacaoMoeda, error
 	return nil, fmt.Errorf("no data found for the last 5 days (excluding weekends)")
 }
 
-func consultarPorSigla(sigla string, data time.Time) (*RespostaTipoCotacaoMoeda, error) {
+func consultarPorSigla(ctx context.Context, sigla string, data time.Time) (*RespostaTipoCotacaoMoeda, error) {
 
 	dataFormatada := data.Format("01-02-2006")
 

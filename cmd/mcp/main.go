@@ -31,6 +31,7 @@ func main() {
 	)
 
 	s.AddTool(tools.CotacaoMoedasTool, tools.CotacaoMoedasHandler)
+	s.AddTool(tools.MoedasDisponiveisTool, tools.MoedasDisponiveisHandler)
 
 	if runWithSee {
 		serveSSE(s)

@@ -44,7 +44,7 @@ func resultadoFinal(cotacao *moedas.RespostaTipoCotacaoMoeda) *mcp.CallToolResul
 }
 
 func cotacaoMaisRecente(ctx context.Context, simbolo string) (*mcp.CallToolResult, error) {
-	cotacao, err := moedas.ConsultarPorSiglaUltimaData(simbolo)
+	cotacao, err := moedas.ConsultarPorSiglaUltimaData(ctx, simbolo)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func cotacaoDataEspecifica(ctx context.Context, simbolo string, dataStr string) 
 		return nil, fmt.Errorf("data inválida: %s", dataStr)
 	}
 
-	cotacao, err := moedas.ConsultarPorSiglaEData(simbolo, data)
+	cotacao, err := moedas.ConsultarPorSiglaEData(ctx, simbolo, data)
 	if err != nil {
 		return nil, err
 	}
