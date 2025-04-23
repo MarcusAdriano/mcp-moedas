@@ -14,12 +14,12 @@ const (
 )
 
 var (
-	runWithSee = false
+	runWithSse = false
 )
 
 func main() {
 
-	flag.BoolVar(&runWithSee, "see", false, "Run with see")
+	flag.BoolVar(&runWithSse, "sse", false, "Run with sse")
 	flag.Parse()
 
 	s := server.NewMCPServer(
@@ -37,7 +37,7 @@ func main() {
 	// prompts
 	s.AddPrompt(tools.PromptCotacaoMoedas, tools.PromptCotacaoMoedasHandler)
 
-	if runWithSee {
+	if runWithSse {
 		serveSSE(s)
 	}
 	serveStdio(s)
