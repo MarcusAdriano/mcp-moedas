@@ -51,7 +51,7 @@ func Disponiveis(ctx context.Context) (*RespostaTipoMoeda, error) {
 
 	url.RawQuery = query.Encode()
 
-	req, err := http.NewRequest("GET", url.String(), nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", url.String(), nil)
 	req.Header.Set("Accept", "application/json;odata.metadata=minimal")
 
 	log.Printf("Sending request to %s...\n", url.String())
@@ -122,7 +122,7 @@ func consultarPorSigla(ctx context.Context, sigla string, data time.Time) (*Resp
 	bcUrl := url.String()
 	log.Printf("Sending request to %s...\n", bcUrl)
 
-	req, err := http.NewRequest("GET", bcUrl, nil)
+	req, err := http.NewRequestWithContext(ctx, "GET", bcUrl, nil)
 	if err != nil {
 		log.Fatalf("Error creating request: %v", err)
 	}
