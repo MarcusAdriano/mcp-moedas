@@ -30,8 +30,12 @@ func main() {
 		server.WithRecovery(),
 	)
 
+	// tools
 	s.AddTool(tools.CotacaoMoedasTool, tools.CotacaoMoedasHandler)
 	s.AddTool(tools.MoedasDisponiveisTool, tools.MoedasDisponiveisHandler)
+
+	// prompts
+	s.AddPrompt(tools.PromptCotacaoMoedas, tools.PromptCotacaoMoedasHandler)
 
 	if runWithSee {
 		serveSSE(s)

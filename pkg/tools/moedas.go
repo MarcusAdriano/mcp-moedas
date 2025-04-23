@@ -10,6 +10,36 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 )
 
+var PromptCotacaoMoedas = mcp.NewPrompt("cotacao_moedas",
+	mcp.WithPromptDescription("Prompt para consultar a cotação de moedas no Bacen PTAX"),
+)
+
+var PromptCotacaoMoedasHandler = func(ctx context.Context, request mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
+
+	moedasDisponiveis, err := moedas.Disponiveis(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("erro ao consultar moedas disponíveis: %w", err)
+	}
+	moedasDisponiveisStr := ""
+	for _, moeda := range moedasDisponiveis.Values {
+		moedasDisponiveisStr += fmt.Sprintf("%s (%s), ", moeda.Simbolo, moeda.NomeFormatado)
+	}
+
+	return mcp.NewGetPromptResult(
+		"cotacao_moedas",
+		[]mcp.PromptMessage{
+			mcp.NewPromptMessage(
+				mcp.RoleAssistant,
+				mcp.NewTextContent(fmt.Sprintf("Você é um assistente de cotação de moedas PTAX do Banco Central do Brasil. Essas são as moedas disponíveis: %s", moedasDisponiveisStr)),
+			),
+			mcp.NewPromptMessage(
+				mcp.RoleAssistant,
+				mcp.NewTextContent("Qual moeda deseja consultar?"),
+			),
+		},
+	), nil
+}
+
 var CotacaoMoedasTool = mcp.NewTool("cotacao_moedas",
 	mcp.WithDescription("Cotação de Moedas no Bacen PTAX"),
 	mcp.WithString("simbolo",
