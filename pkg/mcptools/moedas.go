@@ -10,7 +10,7 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 )
 
-var PromptCotacaoMoedas = mcp.NewPrompt("cotacao_moedas",
+var PromptCotacaoMoedas = mcp.NewPrompt("instrucao_cotacao_moeda",
 	mcp.WithPromptDescription("Prompt para consultar a cotação de moedas no Bacen PTAX"),
 )
 
@@ -26,7 +26,7 @@ var PromptCotacaoMoedasHandler = func(ctx context.Context, request mcp.GetPrompt
 	}
 
 	return mcp.NewGetPromptResult(
-		"cotacao_moedas",
+		"Instrução para solicitar cotação de uma moeda disponível no PTAX do Bacen",
 		[]mcp.PromptMessage{
 			mcp.NewPromptMessage(
 				mcp.RoleAssistant,

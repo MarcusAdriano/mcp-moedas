@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/marcusadriano/mcp-moedas/pkg/tools"
+	tools "github.com/marcusadriano/mcp-moedas/pkg/mcptools"
 	"github.com/mark3labs/mcp-go/server"
 )
 
