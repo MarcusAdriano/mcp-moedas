@@ -53,13 +53,13 @@ var CotacaoMoedasTool = mcp.NewTool("cotacao_moedas",
 
 func CotacaoMoedasHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 
-	simbolo, ok := request.Params.Arguments["simbolo"].(string)
-	if !ok {
+	simbolo, err := request.RequireString("simbolo")
+	if err != nil {
 		return nil, errors.New("simbolo parameter is required")
 	}
 
-	data, ok := request.Params.Arguments["data"].(string)
-	if !ok {
+	data, err := request.RequireString("data")
+	if err != nil {
 		return cotacaoMaisRecente(ctx, simbolo)
 	}
 
