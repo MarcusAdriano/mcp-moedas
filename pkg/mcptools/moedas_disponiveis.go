@@ -9,6 +9,10 @@ import (
 
 var MoedasDisponiveisTool = mcp.NewTool("moedas_disponiveis",
 	mcp.WithDescription("Lista de moedas disponíveis no Bacen PTAX"),
+	mcp.WithNumber("limite",
+		mcp.DefaultNumber(10),
+		mcp.Description("Número máximo de moedas a serem retornadas. Padrão é 10."),
+	),
 )
 
 func MoedasDisponiveisHandler(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
